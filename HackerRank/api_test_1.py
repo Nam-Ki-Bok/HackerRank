@@ -19,29 +19,30 @@ import json
 #
 
 
-def getTotalGoals(team, year, competition):
+def getTotalGoals(team, year):
     answer = 0
 
-    API_URL = "https://jsonmock.hackerrank.com/api/football_mateches?year={}&team1={}&page=1".format(str(year), team)
+    API_URL = "https://jsonmock.hackerrank.com/api/football_matches?year={}&team1={}&page=1".format(str(year), team)
+    print(API_URL)
     response = json.loads(requests.get(API_URL).text)
     for data in response.get("data"):
         answer += int(data["team1goals"])
 
     for page in range(2, int(response.get("total_pages")) + 1):
-        API_URL = "https://jsonmock.hackerrank.com/api/football_mateches?year={}&team1={}&page={}".format(str(year),
+        API_URL = "https://jsonmock.hackerrank.com/api/football_matches?year={}&team1={}&page={}".format(str(year),
                                                                                                           team,
                                                                                                           str(page))
         response = json.loads(requests.get(API_URL).text)
         for data in response.get("data"):
             answer += int(data["team1goals"])
 
-    API_URL = "https://jsonmock.hackerrank.com/api/football_mateches?year={}&team2={}&page=1".format(str(year), team)
+    API_URL = "https://jsonmock.hackerrank.com/api/football_matches?year={}&team2={}&page=1".format(str(year), team)
     response = json.loads(requests.get(API_URL).text)
     for data in response.get("data"):
         answer += int(data["team2goals"])
 
     for page in range(2, int(response.get("total_pages")) + 1):
-        API_URL = "https://jsonmock.hackerrank.com/api/football_mateches?year={}&team2={}&page={}".format(str(year),
+        API_URL = "https://jsonmock.hackerrank.com/api/football_matches?year={}&team2={}&page={}".format(str(year),
                                                                                                           team,
                                                                                                           str(page))
         response = json.loads(requests.get(API_URL).text)
